@@ -91,16 +91,18 @@ public class DiscRack extends Block
       if (tile instanceof DiscRackEntity)
       {
         DiscRackEntity discRack = (DiscRackEntity) tile;
-        if (discRack.records.getStackInSlot(slot).isEmpty() && (heldItem.getItem() instanceof MusicDiscItem ||
+        int closestEmptySlot = getClosestEmptySlot(discRack, slot, true);
+        if (closestEmptySlot != -1 && !heldItem.isEmpty() && (heldItem.getItem() instanceof MusicDiscItem ||
             heldItem.getTag().contains("Music")))
         {
-          discRack.records.setStackInSlot(slot, heldItem.copy());
+          discRack.records.setStackInSlot(closestEmptySlot, heldItem.copy());
           heldItem.shrink(1);
           return ActionResultType.SUCCESS;
         }
-        if (heldItem.isEmpty() && !discRack.records.getStackInSlot(slot).isEmpty())
+        int closestFilledSlot = getClosestEmptySlot(discRack, slot, false);
+        if (heldItem.isEmpty() && closestFilledSlot != -1)
         {
-          ItemStack record = discRack.records.extractItem(slot, 64, false);
+          ItemStack record = discRack.records.extractItem(closestFilledSlot, 64, false);
           world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5F, pos.getY() + 0.6F, pos.getZ() + 0.5F, record));
           return ActionResultType.SUCCESS;
         }
@@ -131,6 +133,26 @@ public class DiscRack extends Block
         break;
     }
     return (Math.min(Math.max((int) (posAlongAxis * 7),0),6));
+  }
+
+  public static int getClosestEmptySlot(DiscRackEntity rack, int slot, boolean empty)
+  {
+    if (rack.records.getStackInSlot(slot).isEmpty() == empty)
+    {
+      return slot;
+    }
+    for (int range = 1; range < 7; range++)
+    {
+      if (slot + range < 7 && rack.records.getStackInSlot(slot+range).isEmpty() == empty)
+      {
+        return slot + range;
+      }
+      if (slot - range >= 0 && rack.records.getStackInSlot(slot-range).isEmpty() == empty)
+      {
+        return slot - range;
+      }
+    }
+    return -1;
   }
 
   @Override
