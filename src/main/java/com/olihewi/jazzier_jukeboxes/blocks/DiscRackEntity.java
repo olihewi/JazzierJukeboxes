@@ -32,14 +32,14 @@ public class DiscRackEntity extends TileEntity
   @Override
   public void load(BlockState p_230337_1_, CompoundNBT nbt)
   {
-    records.deserializeNBT(nbt.getCompound("inventory"));
+    records.deserializeNBT(nbt.getCompound("Inventory"));
     super.load(p_230337_1_, nbt);
   }
 
   @Override
   public CompoundNBT save(CompoundNBT p_189515_1_)
   {
-    p_189515_1_.put("inventory", records.serializeNBT());
+    p_189515_1_.put("Inventory", records.serializeNBT());
     return super.save(p_189515_1_);
   }
 

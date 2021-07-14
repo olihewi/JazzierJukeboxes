@@ -59,6 +59,28 @@ public class DiscRack extends Block
   }
 
   @Override
+  public void onRemove(BlockState state, World world, BlockPos blockPos, BlockState newState, boolean moving)
+  {
+    if (state.getBlock() != newState.getBlock())
+    {
+      TileEntity tileEntity = world.getBlockEntity(blockPos);
+      if (tileEntity instanceof DiscRackEntity)
+      {
+        DiscRackEntity discRackEntity = (DiscRackEntity) tileEntity;
+        for (int i = 0; i < discRackEntity.records.getSlots(); i++)
+        {
+          ItemStack stack = discRackEntity.records.getStackInSlot(i);
+          if (!stack.isEmpty())
+          {
+            world.addFreshEntity(new ItemEntity(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), stack));
+          }
+        }
+      }
+    }
+    super.onRemove(state, world, blockPos, newState, moving);
+  }
+
+  @Override
   public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit)
   {
     if (!world.isClientSide && hand == Hand.MAIN_HAND)
@@ -115,6 +137,28 @@ public class DiscRack extends Block
   public boolean useShapeForLightOcclusion(BlockState p_220074_1_)
   {
     return false;
+  }
+
+  @Override
+  public boolean hasAnalogOutputSignal(BlockState p_149740_1_)
+  {
+    return true;
+  }
+
+  @Override
+  public int getAnalogOutputSignal(BlockState state, World world, BlockPos pos)
+  {
+    TileEntity tile = world.getBlockEntity(pos);
+    DiscRackEntity rack = (DiscRackEntity) tile;
+    int fillAmount = 0;
+    for (int i = 0; i < rack.records.getSlots(); i++)
+    {
+      if (!rack.records.getStackInSlot(i).isEmpty())
+      {
+        fillAmount++;
+      }
+    }
+    return 15 * fillAmount / rack.records.getSlots();
   }
 
   @Override
