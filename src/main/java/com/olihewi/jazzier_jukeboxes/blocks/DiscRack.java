@@ -69,7 +69,8 @@ public class DiscRack extends Block
       if (tile instanceof DiscRackEntity)
       {
         DiscRackEntity discRack = (DiscRackEntity) tile;
-        if (heldItem.getItem() instanceof MusicDiscItem && discRack.records.getStackInSlot(slot).isEmpty())
+        if (discRack.records.getStackInSlot(slot).isEmpty() && (heldItem.getItem() instanceof MusicDiscItem ||
+            heldItem.getTag().contains("Music")))
         {
           discRack.records.setStackInSlot(slot, heldItem.copy());
           heldItem.shrink(1);

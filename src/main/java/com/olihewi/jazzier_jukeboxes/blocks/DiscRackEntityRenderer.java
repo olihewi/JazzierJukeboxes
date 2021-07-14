@@ -10,12 +10,14 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 public class DiscRackEntityRenderer extends TileEntityRenderer<DiscRackEntity>
@@ -66,9 +68,20 @@ public class DiscRackEntityRenderer extends TileEntityRenderer<DiscRackEntity>
       {
         int slot = DiscRack.HitPosToSlot(rayTraceResult1, rack.getBlockState());
         ItemStack stack = rack.records.getStackInSlot(slot);
-        if (!stack.isEmpty() && stack.getItem() instanceof MusicDiscItem)
+        if (!stack.isEmpty())
         {
-          MusicDiscItem musicDiscItem = (MusicDiscItem) stack.getItem();
+          ITextComponent text;
+          if (stack.getItem() instanceof MusicDiscItem)
+          {
+            MusicDiscItem musicDiscItem = (MusicDiscItem) stack.getItem();
+            text = musicDiscItem.getDisplayName();
+          }
+          else // Etched Support
+          {
+            CompoundNBT tag = stack.getTag().getCompound("Music");
+            String str = tag.getString("Author") + " - " + tag.getString("Title");
+            text = new StringTextComponent(str);
+          }
           matrix.pushPose();
           switch (facing)
           {
@@ -88,7 +101,6 @@ public class DiscRackEntityRenderer extends TileEntityRenderer<DiscRackEntity>
           matrix.mulPose(renderer.camera.rotation());
           matrix.scale(-0.025F, -0.025F, -0.025F);
           FontRenderer fontRenderer = renderer.getFont();
-          ITextComponent text = musicDiscItem.getDisplayName();
           float f2 = (float)(-fontRenderer.width(text) / 2);
           float f1 = Minecraft.getInstance().options.getBackgroundOpacity(0.25F);
           Matrix4f matrix4f = matrix.last().pose();
