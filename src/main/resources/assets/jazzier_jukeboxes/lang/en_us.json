@@ -18,5 +18,10 @@
   "block.minecraft.banner.music_note.brown": "Brown Note",
   "block.minecraft.banner.music_note.green": "Green Note",
   "block.minecraft.banner.music_note.red": "Red Note",
-  "block.minecraft.banner.music_note.black": "Black Note"
+  "block.minecraft.banner.music_note.black": "Black Note",
+
+  "item.jazzier_jukeboxes.music_disc_ravaged": "Music Disc",
+  "item.jazzier_jukeboxes.music_disc_ravaged.desc": "Miya Ahmed - Ravaged",
+
+  "item.jazzier_jukeboxes.jukebox_hat": "Jukebox Hat"
 }

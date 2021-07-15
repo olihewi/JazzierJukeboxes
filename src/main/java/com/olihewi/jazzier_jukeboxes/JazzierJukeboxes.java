@@ -1,6 +1,5 @@
 package com.olihewi.jazzier_jukeboxes;
 
-import com.olihewi.jazzier_jukeboxes.blocks.DiscRackEntity;
 import com.olihewi.jazzier_jukeboxes.blocks.DiscRackEntityRenderer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
