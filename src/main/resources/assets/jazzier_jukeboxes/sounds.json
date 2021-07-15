@@ -1,0 +1,12 @@
+{
+  "music.record.ravaged":
+  {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "jazzier_jukeboxes:record/ravaged",
+        "stream": true
+      }
+    ]
+  }
+}
