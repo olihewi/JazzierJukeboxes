@@ -1,8 +1,12 @@
 {
   "variants": {
-    "facing=north": { "model": "jazzier_jukeboxes:block/disc_rack", "y": 90 },
-    "facing=east": { "model": "jazzier_jukeboxes:block/disc_rack", "y": 180 },
-    "facing=south": { "model": "jazzier_jukeboxes:block/disc_rack", "y": 270 },
-    "facing=west": { "model": "jazzier_jukeboxes:block/disc_rack", "y": 0 }
+    "half=bottom,facing=north": { "model": "jazzier_jukeboxes:block/disc_rack", "y": 90 },
+    "half=bottom,facing=east": { "model": "jazzier_jukeboxes:block/disc_rack", "y": 180 },
+    "half=bottom,facing=south": { "model": "jazzier_jukeboxes:block/disc_rack", "y": 270 },
+    "half=bottom,facing=west": { "model": "jazzier_jukeboxes:block/disc_rack", "y": 0 },
+    "half=top,facing=north": { "model": "jazzier_jukeboxes:block/disc_rack_upper", "y": 90 },
+    "half=top,facing=east": { "model": "jazzier_jukeboxes:block/disc_rack_upper", "y": 180 },
+    "half=top,facing=south": { "model": "jazzier_jukeboxes:block/disc_rack_upper", "y": 270 },
+    "half=top,facing=west": { "model": "jazzier_jukeboxes:block/disc_rack_upper", "y": 0 }
   }
 }

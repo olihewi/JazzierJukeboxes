@@ -3,9 +3,11 @@ package com.olihewi.jazzier_jukeboxes;
 import com.olihewi.jazzier_jukeboxes.blocks.DiscRack;
 import com.olihewi.jazzier_jukeboxes.blocks.DiscRackEntity;
 import net.minecraft.block.Block;
+import net.minecraft.item.BannerPatternItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -29,4 +31,8 @@ public class Registry
   public static final RegistryObject<Block> DISC_RACK_BLOCK = BLOCKS.register("disc_rack", DiscRack::new);
   public static final RegistryObject<Item> DISC_RACK_ITEM = ITEMS.register("disc_rack", () -> new BlockItem(DISC_RACK_BLOCK.get(), new Item.Properties().tab(ItemGroup.TAB_DECORATIONS)));
   public static final RegistryObject<TileEntityType<DiscRackEntity>> DISC_RACK_TILE = TILE_ENTITIES.register("disc_rack", () -> TileEntityType.Builder.of(DiscRackEntity::new,DISC_RACK_BLOCK.get()).build(null));
+
+  // Banner Pattern
+  public static final BannerPattern MUSIC_NOTE_BANNER = BannerPattern.create("MUSIC_NOTE","music_note", "nte");
+  public static final RegistryObject<Item> MUSIC_NOTE_BANNER_PATTERN = ITEMS.register("music_note_banner_pattern", () -> new BannerPatternItem(MUSIC_NOTE_BANNER, new Item.Properties().tab(ItemGroup.TAB_MISC)));
 }

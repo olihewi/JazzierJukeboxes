@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "___"
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:wooden_trapdoors"
+    },
+    "_": {
+      "tag": "minecraft:wooden_slabs"
+    }
+  },
+  "result": {
+    "item": "jazzier_jukeboxes:disc_rack",
+    "count": 1
+  }
+}

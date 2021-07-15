@@ -1,6 +1,7 @@
 package com.olihewi.jazzier_jukeboxes.blocks;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -11,6 +12,8 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.Half;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
@@ -30,8 +33,14 @@ public class DiscRackEntityRenderer extends TileEntityRenderer<DiscRackEntity>
   @Override
   public void render(DiscRackEntity rack, float partialTicks, MatrixStack matrix, IRenderTypeBuffer buffer, int light, int overlay)
   {
+    BlockState blockState = rack.getBlockState();
+    Half half = blockState.getValue(BlockStateProperties.HALF);
+    if (half == Half.TOP)
+    {
+      matrix.translate(0,0.5D,0);
+    }
     matrix.pushPose();
-    Direction facing = rack.getBlockState().getValue(HorizontalBlock.FACING);
+    Direction facing = blockState.getValue(HorizontalBlock.FACING);
     switch (facing)
     {
       case NORTH:
@@ -66,7 +75,7 @@ public class DiscRackEntityRenderer extends TileEntityRenderer<DiscRackEntity>
       World level = rack.getLevel();
       if (level != null && level.getBlockEntity(rayTraceResult1.getBlockPos()) == rack)
       {
-        int slot = DiscRack.HitPosToSlot(rayTraceResult1, rack.getBlockState());
+        int slot = DiscRack.HitPosToSlot(rayTraceResult1, blockState);
         ItemStack stack = rack.records.getStackInSlot(slot);
         if (!stack.isEmpty())
         {

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "jazzier_jukeboxes:item/music_note_banner_pattern"
+  }
+}

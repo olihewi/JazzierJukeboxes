@@ -13,7 +13,10 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.Half;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
@@ -31,6 +34,9 @@ import javax.annotation.Nullable;
 public class DiscRack extends Block
 {
   public static final DirectionProperty FACING = HorizontalBlock.FACING;
+  public static final EnumProperty<Half> HALF = BlockStateProperties.HALF;
+  protected static final VoxelShape BOTTOM_AABB = Block.box(0.0D,0.0D,0.0D,16.0D, 7.0D, 16.0D);
+  protected static final VoxelShape TOP_AABB = Block.box(0.0D,9.0D,0.0D,16.0D, 16.0D, 16.0D);
 
   @Override
   public boolean hasTileEntity(BlockState state)
@@ -55,7 +61,9 @@ public class DiscRack extends Block
   {
     super(AbstractBlock.Properties.of(Material.WOOD)
           .strength(2.0F, 6.0F));
-    this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    this.registerDefaultState(this.stateDefinition.any()
+        .setValue(FACING, Direction.NORTH)
+        .setValue(HALF, Half.BOTTOM));
   }
 
   @Override
@@ -93,7 +101,7 @@ public class DiscRack extends Block
         DiscRackEntity discRack = (DiscRackEntity) tile;
         int closestEmptySlot = getClosestEmptySlot(discRack, slot, true);
         if (closestEmptySlot != -1 && !heldItem.isEmpty() && (heldItem.getItem() instanceof MusicDiscItem ||
-            heldItem.getTag().contains("Music")))
+            (heldItem.getTag() != null && heldItem.getTag().contains("Music"))))
         {
           discRack.records.setStackInSlot(closestEmptySlot, heldItem.copy());
           heldItem.shrink(1);
@@ -103,12 +111,12 @@ public class DiscRack extends Block
         if (heldItem.isEmpty() && closestFilledSlot != -1)
         {
           ItemStack record = discRack.records.extractItem(closestFilledSlot, 64, false);
-          world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5F, pos.getY() + 0.6F, pos.getZ() + 0.5F, record));
+          world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5F, pos.getY() + (state.getValue(HALF) == Half.TOP ? 1.0F : 0.5F), pos.getZ() + 0.5F, record));
           return ActionResultType.SUCCESS;
         }
       }
     }
-    return ActionResultType.FAIL;
+    return ActionResultType.PASS;
   }
 
   public static int HitPosToSlot(BlockRayTraceResult hit, BlockState state)
@@ -186,19 +194,21 @@ public class DiscRack extends Block
   @Override
   public VoxelShape getShape(BlockState p_220053_1_, IBlockReader p_220053_2_, BlockPos p_220053_3_, ISelectionContext p_220053_4_)
   {
-    return Block.box(0.0D,0.0D,0.0D,16.0D, 8.0D, 16.0D);
+    return p_220053_1_.getValue(HALF) == Half.TOP ? TOP_AABB : BOTTOM_AABB;
   }
 
   @Nullable
   @Override
-  public BlockState getStateForPlacement(BlockItemUseContext p_196258_1_)
+  public BlockState getStateForPlacement(BlockItemUseContext blockItemUseContext)
   {
-    return this.defaultBlockState().setValue(FACING, p_196258_1_.getHorizontalDirection().getOpposite());
+    return this.defaultBlockState().setValue(FACING, blockItemUseContext.getHorizontalDirection().getOpposite())
+        .setValue(HALF, blockItemUseContext.getClickLocation().y - blockItemUseContext.getClickedPos().getY() > 0.5D ? Half.TOP : Half.BOTTOM);
   }
 
   @Override
-  protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> p_206840_1_)
+  protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> stateBuilder)
   {
-    p_206840_1_.add(FACING);
+    stateBuilder.add(FACING);
+    stateBuilder.add(HALF);
   }
 }

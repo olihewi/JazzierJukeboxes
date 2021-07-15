@@ -1,3 +1,22 @@
 {
-  "block.jazzier_jukeboxes.disc_rack": "Disc Rack"
+  "block.jazzier_jukeboxes.disc_rack": "Disc Rack",
+
+  "item.jazzier_jukeboxes.music_note_banner_pattern": "Banner Pattern",
+  "item.jazzier_jukeboxes.music_note_banner_pattern.desc": "Music Note",
+  "block.minecraft.banner.music_note.white": "White Note",
+  "block.minecraft.banner.music_note.orange": "Orange Note",
+  "block.minecraft.banner.music_note.magenta": "Magenta Note",
+  "block.minecraft.banner.music_note.light_blue": "Light Blue Note",
+  "block.minecraft.banner.music_note.yellow": "Yellow Note",
+  "block.minecraft.banner.music_note.lime": "Lime Note",
+  "block.minecraft.banner.music_note.pink": "Pink Note",
+  "block.minecraft.banner.music_note.gray": "Gray Note",
+  "block.minecraft.banner.music_note.light_gray": "Light Gray Note",
+  "block.minecraft.banner.music_note.cyan": "Cyan Note",
+  "block.minecraft.banner.music_note.purple": "Purple Note",
+  "block.minecraft.banner.music_note.blue": "Blue Note",
+  "block.minecraft.banner.music_note.brown": "Brown Note",
+  "block.minecraft.banner.music_note.green": "Green Note",
+  "block.minecraft.banner.music_note.red": "Red Note",
+  "block.minecraft.banner.music_note.black": "Black Note"
 }
