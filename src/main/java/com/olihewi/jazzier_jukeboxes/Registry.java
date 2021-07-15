@@ -2,7 +2,6 @@ package com.olihewi.jazzier_jukeboxes;
 
 import com.olihewi.jazzier_jukeboxes.blocks.DiscRack;
 import com.olihewi.jazzier_jukeboxes.blocks.DiscRackEntity;
-import com.olihewi.jazzier_jukeboxes.items.JukeboxHat;
 import net.minecraft.block.Block;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.BannerPattern;
@@ -43,7 +42,4 @@ public class Registry
   public static final Lazy<SoundEvent> RAVAGED_LAZY = Lazy.of(() -> new SoundEvent(new ResourceLocation(JazzierJukeboxes.MOD_ID,"music.record.ravaged")));
   public static final RegistryObject<SoundEvent> RAVAGED = SOUNDS.register("music.record.ravaged.disc", RAVAGED_LAZY);
   public static final RegistryObject<Item> MUSIC_DISC_RAVAGED = ITEMS.register("music_disc_ravaged", () -> new MusicDiscItem(14, RAVAGED_LAZY.get(), new Item.Properties().tab(ItemGroup.TAB_MISC).rarity(Rarity.RARE).stacksTo(1)));
-
-  // Jukebox Hat
-  public static final RegistryObject<Item> JUKEBOX_HAT = ITEMS.register("jukebox_hat", () -> new JukeboxHat(new Item.Properties().tab(ItemGroup.TAB_MISC)));
 }
