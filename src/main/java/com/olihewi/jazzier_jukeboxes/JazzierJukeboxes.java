@@ -1,6 +1,7 @@
 package com.olihewi.jazzier_jukeboxes;
 
 import com.olihewi.jazzier_jukeboxes.blocks.DiscRackEntityRenderer;
+import com.olihewi.jazzier_jukeboxes.events.CommonEvents;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -20,7 +21,7 @@ public class JazzierJukeboxes
 
     Registry.init();
 
-    MinecraftForge.EVENT_BUS.register(this);
+    MinecraftForge.EVENT_BUS.register(CommonEvents.class);
   }
 
   private void commonSetup(final FMLCommonSetupEvent event)

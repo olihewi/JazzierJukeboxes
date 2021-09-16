@@ -2,12 +2,14 @@ package com.olihewi.jazzier_jukeboxes;
 
 import com.olihewi.jazzier_jukeboxes.blocks.DiscRack;
 import com.olihewi.jazzier_jukeboxes.blocks.DiscRackEntity;
+import com.olihewi.jazzier_jukeboxes.events.CommonEvents;
 import net.minecraft.block.Block;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
